@@ -1,4 +1,7 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class EditTaskPage extends StatelessWidget {
   const EditTaskPage({super.key});
@@ -28,7 +31,7 @@ class EditTaskPage extends StatelessWidget {
                   const SizedBox(height: 16),
                   _buildDescriptionFormWidget(),
                   const SizedBox(height: 16),
-                  _buildDueDateFormWidget()
+                  _buildDueDateFormWidget(context)
                 ],
               ),
             ),
@@ -80,11 +83,22 @@ Widget _buildDescriptionFormWidget() {
   );
 }
 
-Widget _buildDueDateFormWidget() {
+Widget _buildDueDateFormWidget(final BuildContext context) {
+  final _dueDateTextFieldController = TextEditingController();
+  final _dueDateFormFocusNode = _DisabledFocusNode();
+
   return TextFormField(
+    focusNode: _dueDateFormFocusNode,
+    controller: _dueDateTextFieldController,
     maxLength: 50,
-    onTap: () => {},
-    onChanged: (value) => {},
+    onTap: () async {
+      final selectedDate = await _showDatePicker(context);
+      if (selectedDate != null) {
+        _dueDateTextFieldController.text =
+            DateFormat('yyyy-MM-dd').format(selectedDate);
+      }
+    },
+    onChanged: (value) {},
     validator: (_) => '',
     decoration: const InputDecoration(
       icon: Icon(Icons.calendar_today_rounded),
@@ -93,4 +107,19 @@ Widget _buildDueDateFormWidget() {
       helperText: 'Required',
     ),
   );
+}
+
+Future<DateTime?> _showDatePicker(final BuildContext context) async {
+  final selectedDate = await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(DateTime.now().year - 5, 1, 1), // 5 years ago
+    lastDate: DateTime(DateTime.now().year + 5, 12, 31), // 5 years later
+  );
+  return selectedDate;
+}
+
+class _DisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }
