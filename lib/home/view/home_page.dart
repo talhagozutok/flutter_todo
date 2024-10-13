@@ -8,7 +8,22 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: TaskListTile(),
+        child: Column(
+          children: [
+            TaskListTile(
+              title: 'Task title',
+              description: 'No description',
+              date: '2024-10-13',
+              isCompleted: false,
+            ),
+            TaskListTile(
+              title: 'Make the mistake you had to make.',
+              description: 'No description',
+              date: '2024-10-13',
+              isCompleted: true,
+            ),
+          ],
+        ),
       ),
     );
   }

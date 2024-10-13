@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 
 class TaskListTile extends StatelessWidget {
-  const TaskListTile({super.key});
+  final String title;
+  final String date;
+  final String description;
+  final bool isCompleted;
+
+  const TaskListTile({
+    super.key,
+    required this.title,
+    required this.date,
+    required this.description,
+    this.isCompleted = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +29,17 @@ class TaskListTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Task title',
+                    title,
                     style: textTheme.titleLarge,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    '2024-10-13',
+                    date,
                     style: textTheme.bodySmall,
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'No description',
+                    description,
                     style: textTheme.bodyMedium,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -36,10 +47,10 @@ class TaskListTile extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            const Icon(
-              Icons.radio_button_off_rounded,
+            Icon(
+              isCompleted ? Icons.done : Icons.radio_button_off_rounded,
               size: 24,
-              color: Colors.grey,
+              color: isCompleted ? Colors.green : Colors.grey,
             ),
           ],
         ),
