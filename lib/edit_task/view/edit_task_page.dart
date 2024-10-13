@@ -32,6 +32,20 @@ class EditTaskPage extends StatelessWidget {
                 ],
               ),
             ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.save_outlined),
+                    SizedBox(width: 4),
+                    Text('Save'),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
