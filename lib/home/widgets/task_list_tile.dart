@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_todo/edit_task/edit_task.dart';
 
 class TaskListTile extends StatelessWidget {
+  final String id;
   final String title;
   final String date;
   final String description;
@@ -9,6 +10,7 @@ class TaskListTile extends StatelessWidget {
 
   const TaskListTile({
     super.key,
+    required this.id,
     required this.title,
     required this.date,
     required this.description,
@@ -63,6 +65,7 @@ class TaskListTile extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (_) => EditTaskPage(
+              id: id,
               title: title,
               description: description,
               date: date,

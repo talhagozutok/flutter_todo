@@ -8,11 +8,19 @@ environment:
 
 dependencies:
   bloc: ^8.1.4
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
   intl: ^0.19.0
   meta: ^1.15.0
+  sqflite_task_api:
+    path: packages/sqflite_task_api
+  task_api:
+    path: packages/task_api
+  task_repository:
+    path: packages/task_repository
+  uuid: ^4.5.1
 
 dev_dependencies:
   flutter_lints: ^4.0.0
