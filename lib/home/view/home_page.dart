@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
           if (state is TaskLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is TaskLoaded) {
-            return Column(
+            return ListView(
               children: state.tasks
                   .map((task) => TaskListTile(
                         id: task.id,
@@ -27,6 +27,13 @@ class HomePage extends StatelessWidget {
                         description: task.description,
                         date: task.date ?? '',
                         isCompleted: task.isCompleted,
+                        onToggleComplete: () {
+                          final updatedTask = task.copyWith(
+                            isCompleted: !task.isCompleted,
+                          );
+                          BlocProvider.of<TaskCubit>(context)
+                              .updateTask(updatedTask);
+                        },
                       ))
                   .toList(),
             );

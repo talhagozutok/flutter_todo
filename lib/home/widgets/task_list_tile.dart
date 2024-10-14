@@ -7,6 +7,7 @@ class TaskListTile extends StatelessWidget {
   final String date;
   final String description;
   final bool isCompleted;
+  final VoidCallback onToggleComplete; // Callback for toggling completion
 
   const TaskListTile({
     super.key,
@@ -14,7 +15,8 @@ class TaskListTile extends StatelessWidget {
     required this.title,
     required this.date,
     required this.description,
-    this.isCompleted = false,
+    required this.isCompleted, // Make isCompleted required
+    required this.onToggleComplete,
   });
 
   @override
@@ -51,10 +53,14 @@ class TaskListTile extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Icon(
-                isCompleted ? Icons.done : Icons.radio_button_off_rounded,
-                size: 24,
-                color: isCompleted ? Colors.green : Colors.grey,
+              GestureDetector(
+                // Make the icon clickable
+                onTap: onToggleComplete, // Toggle task completion on tap
+                child: Icon(
+                  isCompleted ? Icons.done : Icons.radio_button_off_rounded,
+                  size: 24,
+                  color: isCompleted ? Colors.green : Colors.grey,
+                ),
               ),
             ],
           ),
@@ -69,6 +75,7 @@ class TaskListTile extends StatelessWidget {
               title: title,
               description: description,
               date: date,
+              isCompleted: isCompleted,
               isNewTask: false,
             ),
           ),

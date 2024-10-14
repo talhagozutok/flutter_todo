@@ -14,6 +14,7 @@ class EditTaskPage extends StatelessWidget {
   final String? title;
   final String? date;
   final String? description;
+  final bool? isCompleted;
   final bool isNewTask;
 
   const EditTaskPage({
@@ -22,6 +23,7 @@ class EditTaskPage extends StatelessWidget {
     this.title,
     this.date,
     this.description,
+    this.isCompleted,
     required this.isNewTask,
   });
 
@@ -89,6 +91,7 @@ class EditTaskPage extends StatelessWidget {
                       title: _taskTitle ?? '',
                       description: _taskDescription ?? '',
                       date: _taskDate ?? '',
+                      isCompleted: isCompleted ?? false,
                     );
 
                     if (isNewTask) {
