@@ -14,8 +14,6 @@ class HomePage extends StatelessWidget {
       ),
       body: const Column(
         children: [
-          FiltersWidget(),
-          Divider(),
           Center(
             child: Column(
               children: [
