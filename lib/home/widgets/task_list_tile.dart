@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/edit_task/edit_task.dart';
 
 class TaskListTile extends StatelessWidget {
   final String title;
@@ -18,43 +19,58 @@ class TaskListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: textTheme.titleLarge,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    date,
-                    style: textTheme.bodySmall,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    description,
-                    style: textTheme.bodyMedium,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+    return InkWell(
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: textTheme.titleLarge,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      date,
+                      style: textTheme.bodySmall,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      description,
+                      style: textTheme.bodyMedium,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(width: 8),
-            Icon(
-              isCompleted ? Icons.done : Icons.radio_button_off_rounded,
-              size: 24,
-              color: isCompleted ? Colors.green : Colors.grey,
-            ),
-          ],
+              const SizedBox(width: 8),
+              Icon(
+                isCompleted ? Icons.done : Icons.radio_button_off_rounded,
+                size: 24,
+                color: isCompleted ? Colors.green : Colors.grey,
+              ),
+            ],
+          ),
         ),
       ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => EditTaskPage(
+              title: title,
+              description: description,
+              date: date,
+              isNewTask: false,
+            ),
+          ),
+        );
+      },
     );
   }
 }

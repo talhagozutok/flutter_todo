@@ -4,17 +4,28 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class EditTaskPage extends StatelessWidget {
-  const EditTaskPage({super.key});
+  final String? title;
+  final String? date;
+  final String? description;
+  final bool isNewTask;
+
+  const EditTaskPage({
+    super.key,
+    this.title,
+    this.date,
+    this.description,
+    required this.isNewTask,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Task'),
+        title: isNewTask ? const Text('Add Task') : const Text('Edit Task'),
         actions: [
           IconButton(
             onPressed: () => {},
-            icon: const Icon(Icons.delete),
+            icon: isNewTask ? const Icon(null) : const Icon(Icons.delete),
           )
         ],
       ),
@@ -27,11 +38,11 @@ class EditTaskPage extends StatelessWidget {
             Form(
               child: Column(
                 children: [
-                  _buildTitleFormWidget(),
+                  _buildTitleFormWidget(initialValue: title),
                   const SizedBox(height: 16),
-                  _buildDescriptionFormWidget(),
+                  _buildDescriptionFormWidget(initialValue: description),
                   const SizedBox(height: 16),
-                  _buildDueDateFormWidget(context)
+                  _buildDueDateFormWidget(context, initialValue: date)
                 ],
               ),
             ),
@@ -56,8 +67,9 @@ class EditTaskPage extends StatelessWidget {
   }
 }
 
-Widget _buildTitleFormWidget() {
+Widget _buildTitleFormWidget({String? initialValue}) {
   return TextFormField(
+    initialValue: initialValue,
     maxLength: 50,
     onChanged: (value) => {},
     validator: (_) => '',
@@ -70,8 +82,9 @@ Widget _buildTitleFormWidget() {
   );
 }
 
-Widget _buildDescriptionFormWidget() {
+Widget _buildDescriptionFormWidget({String? initialValue}) {
   return TextFormField(
+    initialValue: initialValue,
     maxLength: 150,
     onChanged: (value) => {},
     validator: (_) => '',
@@ -83,9 +96,12 @@ Widget _buildDescriptionFormWidget() {
   );
 }
 
-Widget _buildDueDateFormWidget(final BuildContext context) {
+Widget _buildDueDateFormWidget(final BuildContext context,
+    {String? initialValue}) {
   final _dueDateTextFieldController = TextEditingController();
   final _dueDateFormFocusNode = _DisabledFocusNode();
+
+  _dueDateTextFieldController.text = initialValue ?? '';
 
   return TextFormField(
     focusNode: _dueDateFormFocusNode,

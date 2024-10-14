@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/edit_task/edit_task.dart';
 import 'package:flutter_todo/home/home.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -35,8 +37,24 @@ class HomePage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
         child: const Icon(Icons.add),
+        onPressed: () {
+          var now = DateTime.now();
+          var formatter = DateFormat('yyyy-MM-dd');
+          String formattedDate = formatter.format(now);
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => EditTaskPage(
+                title: null,
+                description: null,
+                date: formattedDate,
+                isNewTask: true,
+              ),
+            ),
+          );
+        },
       ),
     );
   }
